@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { assets } from "../src/assets/assets";
-import PopupForm from "./Popupform";
+import PopupForm from "./PopupForm";
 
 
 const TopBar = () => {

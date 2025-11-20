@@ -1,0 +1,144 @@
+@import "tailwindcss";
+ 
+      
+        @keyframes slide {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-slide {
+          display: flex;
+          width: max-content;
+          animation: slide 20s linear infinite;
+        }
+      /* Soft Floating Circles Background */
+.floating-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-bg span {
+  position: absolute;
+  display: block;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  animation: float 12s linear infinite;
+  bottom: -150px;
+}
+
+.floating-bg span:nth-child(1) {
+  left: 10%;
+  animation-duration: 10s;
+  width: 60px;
+  height: 60px;
+}
+.floating-bg span:nth-child(2) {
+  left: 40%;
+  animation-duration: 12s;
+}
+.floating-bg span:nth-child(3) {
+  left: 70%;
+  animation-duration: 14s;
+  width: 100px;
+  height: 100px;
+}
+.floating-bg span:nth-child(4) {
+  left: 20%;
+  animation-duration: 16s;
+}
+.floating-bg span:nth-child(5) {
+  left: 85%;
+  animation-duration: 18s;
+  width: 50px;
+  height: 50px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translateY(-1200px) rotate(360deg); opacity: 0; }
+}
+
+/* ============================
+   MAGIC NEON BORDER EFFECT
+============================ */
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+.magic-card {
+  --card-height: 350px;
+  --card-width: 270px;
+
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 3px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.magic-card::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: 10px;
+  background-image: linear-gradient(
+    var(--rotate),
+    #5ddcff,
+    #3c67e3 43%,
+    #4e00c2
+  );
+  animation: spin 2.5s linear infinite;
+}
+
+.magic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  filter: blur(25px);
+  background-image: linear-gradient(
+    var(--rotate),
+    #5ddcff,
+    #3c67e3 43%,
+    #4e00c2
+  );
+  opacity: 1;
+  animation: spin 2.5s linear infinite;
+}
+
+.magic-card:hover div {
+  color: white;
+  transition: color 1s;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}

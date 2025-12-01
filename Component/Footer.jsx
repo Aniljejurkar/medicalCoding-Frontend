@@ -110,6 +110,7 @@ const Footer = () => {
       <div className="fixed bottom-0 left-0 w-full z-50">
         <div className="flex flex-row w-full">
 
+<<<<<<< HEAD
           {/* Left (Green Section) */}
           <a
             href="tel:+919545450788"
@@ -125,6 +126,15 @@ const Footer = () => {
           >
             📘 Free 1st Class
           </div>
+=======
+    {/* Left (Green Section) */}
+   <a
+  href="tel:+919545450788"
+  className="bg-green-600 text-white flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium border border-black"
+>
+  +91 9545450788
+ </a>
+>>>>>>> f9c5761fb72ab834622c16f9d9dee48f4f5cc0c4
 
         </div>
       </div>

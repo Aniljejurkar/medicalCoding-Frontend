@@ -109,18 +109,10 @@ const Footer = () => {
       <div className="fixed bottom-0 left-0 w-full z-50">
         <div className="flex flex-row w-full">
 
-{/* Left (Green Section) */}
-<a
-  href="tel:+919545450788"
-  className="bg-green-600 text-white flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium border border-black"
->
-  <img src={assets.phoneIcon} alt="" className="w-5 h-5 bg-none" /> +91 9545450788
-</a>
-
           {/* Left (Green Section) */}
           <a
             href="tel:+919545450788"
-            className="bg-green-600 text-white flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium border border-black"
+            className="bg-green-600 text-white flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium border border-black cursor-pointer"
           >
             <img src={assets.phoneIcon} alt="" className="w-5 h-5" /> +91 9545450788
           </a>

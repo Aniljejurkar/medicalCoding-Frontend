@@ -23,7 +23,7 @@ const SocialIcons = () => {
 
       {/* Instagram Icon */}
       <a 
-        href="https://instagram.com/pranj_supekar" 
+        href="https://instagram.com" 
         target="_blank" 
         rel="noopener noreferrer"
       >

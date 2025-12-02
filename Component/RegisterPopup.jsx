@@ -85,10 +85,10 @@ const RegisterPopup = ({ isOpen, onClose }) => {
               onChange={(e) => setCountryCode(e.target.value)}
               className="p-3 rounded-xl bg-white/10 border border-cyan-400/40 text-white outline-none neon-input"
             >
-              <option value="+91">+91</option>
-              <option value="+1">+1</option>
-              <option value="+44">+44</option>
-              <option value="+61">+61</option>
+              <option className="bg-amber-950" value="+91">+91</option>
+              <option className="bg-amber-950" value="+1">+1</option>
+              <option className="bg-amber-950" value="+44">+44</option>
+              <option className="bg-amber-950" value="+61">+61</option>
             </select>
             <input
               type="tel"

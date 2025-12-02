@@ -82,15 +82,13 @@ const MedicalCodingBanner = () => {
             />
             <div className="flex gap-2">
               <select className="border border-gray-300 rounded-md px-3 py-2 w-1/2 text-sm text-gray-500">
-                <option>(India +91)</option>
-                <option>(USA +1)</option>
-                <option>(Uk +44)</option>
-                <option>(Pakistan +92)</option>
-                <option>+91 (India)</option>
-                <option>+91 (India)</option>
-                <option>+91 (India)</option>
-                <option>+91 (India)</option>
-                <option>+91 (India)</option>
+                <option value="+91">India +91</option>
+              <option value="+1">USA +1</option>
+              <option value="+44">UK +44</option>
+              <option value="+92">Pakistan +92</option>
+              <option value="+61">Australia +61</option>
+              <option value="+81">Japan +81</option>
+              <option value="+49">Germany +49</option>
               </select>
               <input
                 type="number"

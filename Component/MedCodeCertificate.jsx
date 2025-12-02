@@ -9,7 +9,7 @@ export default function MedCodeCertificate() {
       <div className="max-w-[1200px] mx-auto px-4 py-12 flex flex-col md:flex-row items-start gap-6">
 
         {/* Left: Heading */}
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1 flex justify-center md:justify-start">
           <h1 className="text-3xl md:text-4xl font-bold leading-snug">
             medcode.tech<sup className="align-super">®</sup>
             <br />

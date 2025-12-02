@@ -28,7 +28,7 @@ import AditiMam from './AditiMam.jpeg';
 import BhagyashreeMam from './BhagyashreeMam.jpeg';
 import VaibhavSir from './VaibhavSir.jpeg';
 import certificate from './certificate.png';
-import topIcon from './topIcon.png';
+import logo from './logo.png';
 import formLogo from './formLogo.png';
 import AI_robot from './AI_robot.jpg';
 import Market_trend from './Market_trend.jpg';
@@ -70,7 +70,7 @@ export const assets={
     AditiMam,
     VaibhavSir,
     certificate,
-    topIcon,
+    logo,
     formLogo,
     AI_robot,
     Market_trend,

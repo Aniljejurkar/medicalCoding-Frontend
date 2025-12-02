@@ -114,7 +114,7 @@ const Footer = () => {
             href="tel:+919545450788"
             className="bg-green-600 text-white flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium border border-black cursor-pointer"
           >
-            <img src={assets.phoneIcon} alt="" className="w-5 h-5" /> +91 9545450788
+            <img src={assets.phoneIcon} alt="abc" className="w-5 h-5" /> +91 9545450788
           </a>
 
 

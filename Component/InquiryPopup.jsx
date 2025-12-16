@@ -1,9 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-const InquiryPopup = ({
-  autoOpenDelay = 2500,
-  soundSrc = "/sounds/pop.mp3",
-}) => {
+const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -11,18 +8,12 @@ const InquiryPopup = ({
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    inquiry: "",
+    inquiryType: "",
     message: "",
   });
 
   const cardRef = useRef(null);
   const audioRef = useRef(null);
-
-  // Auto-open popup
-  useEffect(() => {
-    const t = setTimeout(() => setOpen(true), autoOpenDelay);
-    return () => clearTimeout(t);
-  }, [autoOpenDelay]);
 
   // Load sound
   useEffect(() => {
@@ -37,18 +28,21 @@ const InquiryPopup = ({
     if (!form.phone.trim()) e.phone = "Required";
     else if (!/^\+?[\d\s()-]{7,20}$/.test(form.phone))
       e.phone = "Invalid number";
-    if (!form.inquiry) e.inquiry = "Required";
+    if (!form.inquiryType) e.inquiryType = "Required";
     if (!form.message.trim() || form.message.trim().length < 6)
       e.message = "Min 6 characters";
+
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const change = (k) => (e) => {
-    setForm((s) => ({ ...s, [k]: e.target.value }));
-    setErrors((p) => ({ ...p, [k]: undefined }));
+  // Handle input change
+  const change = (key) => (e) => {
+    setForm((s) => ({ ...s, [key]: e.target.value }));
+    setErrors((p) => ({ ...p, [key]: undefined }));
   };
 
+  // Submit form
   const submit = async (e) => {
     e.preventDefault();
     if (sending) return;
@@ -60,24 +54,44 @@ const InquiryPopup = ({
       return;
     }
 
-    setSending(true);
-    audioRef.current?.play().catch(() => {});
+    try {
+      setSending(true);
+      audioRef.current?.play().catch(() => {});
 
-    setSuccess(true);
-    setForm({ name: "", phone: "", inquiry: "", message: "" });
+      await fetch("http://localhost:8181/api/inquiry/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          inquiryType: form.inquiryType,
+          message: form.message,
+        }),
+      });
 
-    setTimeout(() => setSuccess(false), 2000);
-    setSending(false);
+      setSuccess(true);
+      setForm({ name: "", phone: "", inquiryType: "", message: "" });
+
+      setTimeout(() => {
+        setSuccess(false);
+        setOpen(false);
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      alert("Submission failed. Try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-9999">
+      <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setOpen((s) => !s)}
-          className="w-12 h-12 rounded-full bg-linear-to-br from-purple-600 to-cyan-500
-          text-white text-xl shadow-lg hover:scale-110 active:scale-95 transition cursor-pointer"
+          className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500
+          text-white text-xl shadow-lg hover:scale-110 active:scale-95 transition"
         >
           {open ? "×" : "💬"}
         </button>
@@ -87,23 +101,21 @@ const InquiryPopup = ({
       {open && (
         <div
           ref={cardRef}
-          className={`fixed bottom-20 right-6 w-64 p-4 z-9998
-          bg-white rounded-xl border border-gray-200
-          shadow-[0_5px_20px_rgba(0,0,0,0.15)]
-          animate-popupScale ${Object.keys(errors).length ? "ring-1 ring-red-300" : ""}`}
+          className={`fixed bottom-20 right-6 w-64 p-4 z-40 bg-white rounded-xl
+          border shadow-lg animate-popupScale
+          ${Object.keys(errors).length ? "ring-1 ring-red-300" : ""}`}
         >
-          {/* Close */}
           <button
             onClick={() => setOpen(false)}
-            className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg cursor-pointer"
+            className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
           >
             ×
           </button>
 
-          <h3 className="text-[16px] font-semibold text-gray-800 mb-1">
+          <h3 className="text-sm font-semibold mb-1">
             Medical Coding Inquiry
           </h3>
-          <p className="text-[11px] text-gray-500 mb-3">
+          <p className="text-xs text-gray-500 mb-3">
             ICD-10 • CPT • Modifiers • Billing
           </p>
 
@@ -112,23 +124,20 @@ const InquiryPopup = ({
               value={form.name}
               onChange={change("name")}
               placeholder="Name"
-              className={`w-full px-3 py-2 text-[13px] rounded-md bg-gray-50 text-gray-800
-              ${errors.name ? "border border-red-400" : "border border-gray-300"}`}
+              className={`input ${errors.name && "border-red-400"}`}
             />
 
             <input
               value={form.phone}
               onChange={change("phone")}
               placeholder="Phone"
-              className={`w-full px-3 py-2 text-[13px] rounded-md bg-gray-50 text-gray-800
-              ${errors.phone ? "border border-red-400" : "border border-gray-300"}`}
+              className={`input ${errors.phone && "border-red-400"}`}
             />
 
             <select
-              value={form.inquiry}
-              onChange={change("inquiry")}
-              className={`w-full px-3 py-2 text-[13px] rounded-md bg-gray-50 text-gray-800
-              ${errors.inquiry ? "border border-red-400" : "border border-gray-300"}`}
+              value={form.inquiryType}
+              onChange={change("inquiryType")}
+              className={`input ${errors.inquiryType && "border-red-400"}`}
             >
               <option value="">Select Inquiry</option>
               <option value="ICD-10">ICD-10</option>
@@ -142,16 +151,14 @@ const InquiryPopup = ({
               onChange={change("message")}
               rows={2}
               placeholder="Message"
-              className={`w-full px-3 py-2 text-[13px] rounded-md bg-gray-50 text-gray-800 resize-none
-              ${errors.message ? "border border-red-400" : "border border-gray-300"}`}
+              className={`input resize-none ${errors.message && "border-red-400"}`}
             />
 
             <button
               type="submit"
               disabled={sending}
-              className="w-full mt-1 py-2 rounded-full text-[13px] font-semibold
-              bg-linear-to-r from-purple-500 to-cyan-500 text-white
-              shadow-md hover:scale-[1.03] transition cursor-pointer"
+              className="w-full py-2 rounded-full text-sm font-semibold
+              bg-gradient-to-r from-purple-500 to-cyan-500 text-white"
             >
               {sending ? "Sending..." : "Send Inquiry"}
             </button>
@@ -161,24 +168,27 @@ const InquiryPopup = ({
 
       {/* Success Toast */}
       {success && (
-        <div className="fixed bottom-32 right-6 z-9999">
-          <div className="bg-white px-3 py-2 rounded-md border border-gray-200 shadow-md text-gray-700 text-xs flex items-center gap-2">
-            <div className="w-5 h-5 bg-green-500 text-white rounded-full flex items-center justify-center text-[12px]">
-              ✓
-            </div>
-            Sent successfully!
-          </div>
+        <div className="fixed bottom-32 right-6 z-50 bg-white px-3 py-2
+        rounded-md border shadow-md text-xs flex gap-2">
+          <span className="text-green-600 font-bold">✓</span>
+          Sent successfully!
         </div>
       )}
 
-      {/* Animations */}
       <style>{`
+        .input {
+          width: 100%;
+          padding: 8px 12px;
+          font-size: 13px;
+          border-radius: 6px;
+          border: 1px solid #d1d5db;
+          background: #f9fafb;
+        }
         @keyframes popupIn {
-          from { transform: translateY(12px) scale(.96); opacity: 0; }
+          from { transform: translateY(10px) scale(.95); opacity: 0; }
           to { transform: translateY(0) scale(1); opacity: 1; }
         }
         .animate-popupScale { animation: popupIn .25s ease-out; }
-
         .shake { animation: shake .25s ease-in-out; }
         @keyframes shake {
           25% { transform: translateX(-3px); }

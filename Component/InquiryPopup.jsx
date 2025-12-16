@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { API_BASE_URL } from "../src/config/api";
 
 const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
   const [open, setOpen] = useState(false);
@@ -58,7 +59,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
       setSending(true);
       audioRef.current?.play().catch(() => { });
 
-      await fetch("http://localhost:8181/api/inquiry/submit", {
+      await fetch(`${API_BASE_URL}/inquiry/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

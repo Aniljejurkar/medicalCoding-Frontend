@@ -40,7 +40,7 @@
 //   };
 
 //   try {
-//     const response = await fetch("http://localhost:8181/api/register", {
+//     const response = await fetch("${API_BASE_URL}/register", {
 //       method: "POST",
 //       headers: {
 //         "Content-Type": "application/json"
@@ -208,7 +208,7 @@
 //     };
 
 //     try {
-//       const response = await fetch("http://localhost:8181/api/register", {
+//       const response = await fetch("${API_BASE_URL}/register", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -356,6 +356,7 @@
 
 
 import React, { useState } from "react";
+import { API_BASE_URL } from "../src/config/api";
 
 const RegisterPopup = ({ isOpen, onClose }) => {
   const [fullName, setFullName] = useState("");
@@ -391,7 +392,7 @@ const RegisterPopup = ({ isOpen, onClose }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8181/api/register", {
+      const response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

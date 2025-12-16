@@ -148,6 +148,7 @@
 
 import React, { useEffect, useState } from "react";
 import { assets } from "../src/assets/assets";
+import { API_BASE_URL } from "../src/config/api";
 
 const MedicalCodingBanner = () => {
   const logoes = [
@@ -196,7 +197,7 @@ const MedicalCodingBanner = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8181/api/brochure/download",
+        `${API_BASE_URL}/brochure/download`,
         {
           method: "POST",
           headers: {

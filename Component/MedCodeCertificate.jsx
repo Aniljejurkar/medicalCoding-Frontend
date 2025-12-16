@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { assets } from "../src/assets/assets";
+import { API_BASE_URL } from "../src/config/api";
 
 export default function MedCodeCertificate() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function MedCodeCertificate() {
     const formData = { email, countryCode, phone };
 
     try {
-      const response = await fetch("http://localhost:8181/api/form/submit", {
+      const response = await fetch(`${API_BASE_URL}/form/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

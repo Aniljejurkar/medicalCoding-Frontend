@@ -56,7 +56,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
 
     try {
       setSending(true);
-      audioRef.current?.play().catch(() => {});
+      audioRef.current?.play().catch(() => { });
 
       await fetch("http://localhost:8181/api/inquiry/submit", {
         method: "POST",
@@ -106,7 +106,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
           ${Object.keys(errors).length ? "ring-1 ring-red-300" : ""}`}
         >
           <button
-            onClick={() => setOpen(false)}
+            onClick={() => setOpen(true)}
             className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
           >
             ×

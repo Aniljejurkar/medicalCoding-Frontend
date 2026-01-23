@@ -116,7 +116,7 @@ const PopupForm = ({ isOpen, onClose }) => {
       });
 
       const response = await fetch(
-        `http://localhost:8080/api/brochure/download?${params.toString()}`,
+        `https://medical-backend-4-uv0o.onrender.com/api/brochure/download?${params.toString()}`,
         {
           method: "POST",
         }

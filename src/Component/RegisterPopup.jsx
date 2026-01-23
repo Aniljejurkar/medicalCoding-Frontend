@@ -35,7 +35,7 @@ const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8181/api/register", {
+      const response = await fetch(`${API_BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

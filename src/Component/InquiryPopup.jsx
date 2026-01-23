@@ -82,18 +82,6 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
 
   return (
     <>
-<<<<<<< HEAD:Component/InquiryPopup.jsx
-      {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={() => setOpen((s) => !s)}
-          className="w-12 h-12 rounded-full bg-linear-to-br from-purple-600 to-cyan-500
-          text-white text-xl shadow-lg hover:scale-110 active:scale-95 transition"
-        >
-          {open ? "×" : "💬"}
-        </button>
-      </div>
-=======
       {/* ---------- Floating Button ---------- */}
       <button
         onClick={() => setOpen((o) => !o)}
@@ -104,7 +92,6 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
       >
         {open ? "×" : "💬"}
       </button>
->>>>>>> 4dd74f43c34f689dbd92652fe8a8d2126b4b6f8a:src/Component/InquiryPopup.jsx
 
       {/* ---------- Popup Card ---------- */}
       {open && (
@@ -169,14 +156,9 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
             <button
               type="submit"
               disabled={sending}
-<<<<<<< HEAD:Component/InquiryPopup.jsx
-              className="w-full py-2 rounded-full text-sm font-semibold
-              bg-linear-to-r from-purple-500 to-cyan-500 text-white"
-=======
               className="mt-1 w-full py-2 rounded-full text-sm font-semibold
               bg-gradient-to-r from-purple-500 to-cyan-500 text-white
               disabled:opacity-60"
->>>>>>> 4dd74f43c34f689dbd92652fe8a8d2126b4b6f8a:src/Component/InquiryPopup.jsx
             >
               {sending ? "Sending..." : "Send Inquiry"}
             </button>

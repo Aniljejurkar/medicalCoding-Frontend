@@ -91,7 +91,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
       <div className="fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setOpen((s) => !s)}
-          className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500
+          className="w-12 h-12 rounded-full bg-linear-to-br from-purple-600 to-cyan-500
           text-white text-xl shadow-lg hover:scale-110 active:scale-95 transition"
         >
           {open ? "×" : "💬"}
@@ -159,7 +159,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
               type="submit"
               disabled={sending}
               className="w-full py-2 rounded-full text-sm font-semibold
-              bg-gradient-to-r from-purple-500 to-cyan-500 text-white"
+              bg-linear-to-r from-purple-500 to-cyan-500 text-white"
             >
               {sending ? "Sending..." : "Send Inquiry"}
             </button>

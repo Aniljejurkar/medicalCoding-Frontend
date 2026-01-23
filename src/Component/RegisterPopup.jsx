@@ -44,6 +44,8 @@ const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => {
         body: JSON.stringify(userData),
       });
 
+      console.log("API Response Status:", response.status);
+
       if (!response.ok) {
         throw new Error("Registration failed");
       }

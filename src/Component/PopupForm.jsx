@@ -95,7 +95,7 @@
 
 
 import React, { useState } from "react";
-import { assets } from "../src/assets/assets";
+import { assets } from "../assets/assets";
 
 const PopupForm = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");

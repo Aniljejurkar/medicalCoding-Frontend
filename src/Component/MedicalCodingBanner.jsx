@@ -147,8 +147,8 @@
 
 
 import React, { useEffect, useState } from "react";
-import { assets } from "../src/assets/assets";
-import { API_BASE_URL } from "../src/config/api";
+import { assets } from "../assets/assets";
+import { API_BASE_URL } from "../config/api";
 
 const MedicalCodingBanner = () => {
   const logoes = [
@@ -176,6 +176,17 @@ const MedicalCodingBanner = () => {
   const [countryCode, setCountryCode] = useState("+91");
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLogin = () => {
+      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+      setIsLoggedIn(loggedIn);
+    };
+    checkLogin();
+    window.addEventListener("authChanged", checkLogin);
+    return () => window.removeEventListener("authChanged", checkLogin);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -187,6 +198,12 @@ const MedicalCodingBanner = () => {
   // 🔥 API Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if user is logged in
+    if (!isLoggedIn) {
+      alert("Please login first to download brochure!");
+      return;
+    }
 
     if (!email || !mobile) {
       alert("Please fill all fields");
@@ -278,7 +295,7 @@ const MedicalCodingBanner = () => {
 
         {/* Right Form */}
         <div className="bg-white text-gray-900 rounded-xl shadow-xl p-8 max-w-sm mx-auto w-full md:ml-10">
-          <h3 className="text-xl font-semibold mb-4 text-center text-[#0B0C2A]">
+          <h3 className="text-xl font-semibold mb-4 text-center text-[#0B0C2A] ">
             Download Course Brochure
           </h3>
 
@@ -326,7 +343,7 @@ const MedicalCodingBanner = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#2E3192] text-white py-2 rounded-md font-medium hover:bg-[#1c1f73]"
+              className="w-full bg-[#2E3192] text-white py-2 rounded-md font-medium hover:bg-[#1c1f73] cursor-pointer"
             >
               {loading ? "Downloading..." : "Send Me Brochure »"}
             </button>

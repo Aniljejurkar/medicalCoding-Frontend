@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { API_BASE_URL } from "../src/config/api";
+import { API_BASE_URL } from "../config/api";
 
 const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
   const [open, setOpen] = useState(false);
@@ -16,13 +16,13 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
   const cardRef = useRef(null);
   const audioRef = useRef(null);
 
-  // Load sound
+  /* ---------- Load Sound ---------- */
   useEffect(() => {
     audioRef.current = new Audio(soundSrc);
     audioRef.current.volume = 0.8;
   }, [soundSrc]);
 
-  // Validation
+  /* ---------- Validation ---------- */
   const validate = () => {
     const e = {};
     if (!form.name.trim()) e.name = "Required";
@@ -37,37 +37,32 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
     return Object.keys(e).length === 0;
   };
 
-  // Handle input change
+  /* ---------- Input Change ---------- */
   const change = (key) => (e) => {
-    setForm((s) => ({ ...s, [key]: e.target.value }));
-    setErrors((p) => ({ ...p, [key]: undefined }));
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [key]: null }));
   };
 
-  // Submit form
+  /* ---------- Submit ---------- */
   const submit = async (e) => {
     e.preventDefault();
     if (sending) return;
 
     if (!validate()) {
-      cardRef.current.classList.remove("shake");
-      void cardRef.current.offsetWidth;
-      cardRef.current.classList.add("shake");
+      cardRef.current?.classList.remove("shake");
+      void cardRef.current?.offsetWidth;
+      cardRef.current?.classList.add("shake");
       return;
     }
 
     try {
       setSending(true);
-      audioRef.current?.play().catch(() => { });
+      audioRef.current?.play().catch(() => {});
 
       await fetch(`${API_BASE_URL}/inquiry/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          inquiryType: form.inquiryType,
-          message: form.message,
-        }),
+        body: JSON.stringify(form),
       });
 
       setSuccess(true);
@@ -87,6 +82,7 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
 
   return (
     <>
+<<<<<<< HEAD:Component/InquiryPopup.jsx
       {/* Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button
@@ -97,18 +93,33 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
           {open ? "×" : "💬"}
         </button>
       </div>
+=======
+      {/* ---------- Floating Button ---------- */}
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="fixed bottom-6 right-6 z-[9999]
+        w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500
+        text-white text-xl shadow-lg hover:scale-110 active:scale-95 transition"
+        aria-label="Open inquiry form"
+      >
+        {open ? "×" : "💬"}
+      </button>
+>>>>>>> 4dd74f43c34f689dbd92652fe8a8d2126b4b6f8a:src/Component/InquiryPopup.jsx
 
-      {/* Popup Card */}
+      {/* ---------- Popup Card ---------- */}
       {open && (
         <div
           ref={cardRef}
-          className={`fixed bottom-20 right-6 w-64 p-4 z-40 bg-white rounded-xl
-          border shadow-lg animate-popupScale
+          className={`fixed bottom-20 right-6 z-[9999]
+          w-72 p-4 bg-white rounded-xl border shadow-xl
+          animate-popupScale
           ${Object.keys(errors).length ? "ring-1 ring-red-300" : ""}`}
         >
+          {/* Close */}
           <button
-            onClick={() => setOpen(true)}
-            className="absolute top-2 right-2 text-gray-500 hover:text-red-500"
+            onClick={() => setOpen(false)}
+            className="absolute top-2 right-3 text-lg text-gray-500 hover:text-red-500"
+            aria-label="Close"
           >
             ×
           </button>
@@ -125,20 +136,20 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
               value={form.name}
               onChange={change("name")}
               placeholder="Name"
-              className={`input ${errors.name && "border-red-400"}`}
+              className={`input ${errors.name ? "border-red-400" : ""}`}
             />
 
             <input
               value={form.phone}
               onChange={change("phone")}
               placeholder="Phone"
-              className={`input ${errors.phone && "border-red-400"}`}
+              className={`input ${errors.phone ? "border-red-400" : ""}`}
             />
 
             <select
               value={form.inquiryType}
               onChange={change("inquiryType")}
-              className={`input ${errors.inquiryType && "border-red-400"}`}
+              className={`input ${errors.inquiryType ? "border-red-400" : ""}`}
             >
               <option value="">Select Inquiry</option>
               <option value="ICD-10">ICD-10</option>
@@ -150,16 +161,22 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
             <textarea
               value={form.message}
               onChange={change("message")}
-              rows={2}
+              rows={3}
               placeholder="Message"
-              className={`input resize-none ${errors.message && "border-red-400"}`}
+              className={`input resize-none ${errors.message ? "border-red-400" : ""}`}
             />
 
             <button
               type="submit"
               disabled={sending}
+<<<<<<< HEAD:Component/InquiryPopup.jsx
               className="w-full py-2 rounded-full text-sm font-semibold
               bg-linear-to-r from-purple-500 to-cyan-500 text-white"
+=======
+              className="mt-1 w-full py-2 rounded-full text-sm font-semibold
+              bg-gradient-to-r from-purple-500 to-cyan-500 text-white
+              disabled:opacity-60"
+>>>>>>> 4dd74f43c34f689dbd92652fe8a8d2126b4b6f8a:src/Component/InquiryPopup.jsx
             >
               {sending ? "Sending..." : "Send Inquiry"}
             </button>
@@ -167,15 +184,19 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
         </div>
       )}
 
-      {/* Success Toast */}
+      {/* ---------- Success Toast ---------- */}
       {success && (
-        <div className="fixed bottom-32 right-6 z-50 bg-white px-3 py-2
-        rounded-md border shadow-md text-xs flex gap-2">
+        <div
+          className="fixed bottom-32 right-6 z-[9999]
+          bg-white px-3 py-2 rounded-md border shadow-md
+          text-xs flex items-center gap-2"
+        >
           <span className="text-green-600 font-bold">✓</span>
           Sent successfully!
         </div>
       )}
 
+      {/* ---------- Styles ---------- */}
       <style>{`
         .input {
           width: 100%;
@@ -184,13 +205,22 @@ const InquiryPopup = ({ soundSrc = "/sounds/pop.mp3" }) => {
           border-radius: 6px;
           border: 1px solid #d1d5db;
           background: #f9fafb;
+          outline: none;
+        }
+        .input:focus {
+          border-color: #6366f1;
+          background: #fff;
         }
         @keyframes popupIn {
           from { transform: translateY(10px) scale(.95); opacity: 0; }
           to { transform: translateY(0) scale(1); opacity: 1; }
         }
-        .animate-popupScale { animation: popupIn .25s ease-out; }
-        .shake { animation: shake .25s ease-in-out; }
+        .animate-popupScale {
+          animation: popupIn .25s ease-out;
+        }
+        .shake {
+          animation: shake .25s ease-in-out;
+        }
         @keyframes shake {
           25% { transform: translateX(-3px); }
           50% { transform: translateX(3px); }

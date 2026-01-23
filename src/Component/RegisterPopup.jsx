@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { API_BASE_URL } from "../config/api";
 
-const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => { // added onSwitchToLogin prop
-  if (!isOpen) return null;
+const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
@@ -96,7 +95,7 @@ const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => { // added onSwi
 
         {/* TITLE */}
         <h2 className="text-3xl font-extrabold text-center mb-7 
-                       bg-linear-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
+                       bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text">
           Register Now
         </h2>
 
@@ -153,7 +152,7 @@ const RegisterPopup = ({ isOpen, onClose, onSwitchToLogin }) => { // added onSwi
           <button
             type="submit"
             className="w-full mt-6 py-3 rounded-full font-semibold
-                       bg-linear-to-r from-purple-500 to-cyan-500
+                       bg-gradient-to-r from-purple-500 to-cyan-500
                        shadow-[0_0_15px_rgba(170,50,255,0.8)]
                        hover:shadow-[0_0_25px_rgba(0,200,255,0.9)]
                        transition-all neon-button cursor-pointer"

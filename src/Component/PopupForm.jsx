@@ -152,7 +152,7 @@ const PopupForm = ({ isOpen, onClose }) => {
       <div className="relative w-11/12 max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-linear-to-r from-[#4C34A5] to-[#6C63FF] p-5 relative">
+        <div className="bg-gradient-to-r from-[#4C34A5] to-[#6C63FF] p-5 relative">
           <button
             onClick={onClose}
             className="absolute top-3 right-3 text-white text-2xl font-bold hover:text-gray-200 transition cursor-pointer"
@@ -220,7 +220,7 @@ const PopupForm = ({ isOpen, onClose }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white text-lg font-semibold bg-linear-to-r from-[#4C34A5] to-[#6C63FF] hover:scale-105 transform transition cursor-pointer disabled:opacity-70"
+            className="w-full py-3 rounded-xl text-white text-lg font-semibold bg-gradient-to-r from-[#4C34A5] to-[#6C63FF] hover:scale-105 transform transition cursor-pointer disabled:opacity-70"
           >
             {loading ? "DOWNLOADING..." : "SUBMIT"}
           </button>
